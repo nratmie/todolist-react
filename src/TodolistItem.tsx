@@ -5,7 +5,7 @@ type Props = {
     tasks: Task[]
 }
 
-export const TodolistItem = ({title, tasks} : Props) => {
+export const TodolistItem = ({title, tasks}: Props) => {
     return (
         <div>
             <h3>{title}</h3>
@@ -13,17 +13,21 @@ export const TodolistItem = ({title, tasks} : Props) => {
                 <input/>
                 <button>+</button>
             </div>
-            <ul>
-                {tasks.map((task: Task) => (
-                    <li>
-                        <input
-                            key={task.id}
-                            type="checkbox"
-                            checked={task.isDone}/>
-                        <span>{task.title}</span>
-                    </li>
-                ))}
-            </ul>
+            {tasks.length === 0
+                ? "Тасок нет"
+                : <ul>
+                    {tasks.map((task: Task) => {
+                        return (
+                            <li>
+                                <input
+                                    // key={task.id}
+                                    type="checkbox"
+                                    checked={task.isDone}/>
+                                <span>{task.title}</span>
+                            </li>)
+                    })}
+                </ul>
+            }
             <div>
                 <button>All</button>
                 <button>Active</button>
