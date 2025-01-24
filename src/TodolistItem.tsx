@@ -1,5 +1,5 @@
-import {Task} from "./App.tsx";
-import {Button} from "./Button.tsx";
+import {Task} from './App.tsx';
+import {Button} from './Button.tsx';
 
 type Props = {
     title: string
@@ -12,28 +12,30 @@ export const TodolistItem = ({title, tasks}: Props) => {
             <h3>{title}</h3>
             <div>
                 <input/>
-                <Button title="+"/>
+                <Button title='+'/>
             </div>
             {tasks.length === 0
-                ? "Тасок нет"
+                ? 'Тасок нет'
                 : <ul>
                     {tasks.map((task: Task) => {
                         return (
                             <li>
                                 <input
                                     // key={task.id}
-                                    type="checkbox"
+                                    type='checkbox'
                                     checked={task.isDone}/>
                                 <span>{task.title}</span>
                             </li>)
                     })}
                 </ul>
             }
+
             <div>
-                <Button title="All"/>
-                <Button title="Active"/>
-                <Button title="Completed"/>
+                <Button title='All'/>
+                <Button title='Active'/>
+                <Button title='Completed'/>
             </div>
         </div>
     );
 };
+
