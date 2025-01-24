@@ -4,9 +4,14 @@ import {Button} from './Button.tsx';
 type Props = {
     title: string
     tasks: Task[]
+    deleteTask: (taskId: number) => void
 }
 
-export const TodolistItem = ({title, tasks}: Props) => {
+export const TodolistItem = (
+    {   title,
+        tasks,
+        deleteTask
+}: Props) => {
     return (
         <div>
             <h3>{title}</h3>
@@ -21,11 +26,16 @@ export const TodolistItem = ({title, tasks}: Props) => {
                         return (
                             <li>
                                 <input
-                                    // key={task.id}
+                                    key={task.id}
                                     type='checkbox'
                                     checked={task.isDone}/>
                                 <span>{task.title}</span>
-                            </li>)
+                                <Button
+                                    title={'x'}
+                                    onClick={() => deleteTask(task.id)}
+                                />
+                            </li>
+                        )
                     })}
                 </ul>
             }
