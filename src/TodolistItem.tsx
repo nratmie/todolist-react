@@ -4,6 +4,7 @@ import {Button} from './Button.tsx';
 type Props = {
     title: string
     tasks: Task[]
+    createTask: () => void
     deleteTask: (taskId: string) => void
     changeFilter: (filter: FilterValues) => void
 }
@@ -11,6 +12,7 @@ type Props = {
 export const TodolistItem = (
     {   title,
         tasks,
+        createTask,
         deleteTask,
         changeFilter,
 }: Props) => {
@@ -18,8 +20,8 @@ export const TodolistItem = (
         <div>
             <h3>{title}</h3>
             <div>
-                <input/>
-                <Button title='+'/>
+                {/*<input onChange={(e) => {}}/>*/}
+                <Button title='+' onClick={createTask}/>
             </div>
             {tasks.length === 0
                 ? 'Тасок нет'
