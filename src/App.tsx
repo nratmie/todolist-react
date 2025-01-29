@@ -38,9 +38,9 @@ export const App = () => {
         setFilter(filter)
     }
 
-    const createTask = () => {
-        const task = { id: v1(), title: 'New task', isDone: false }
-        setTasks([task, ...filteredTasks])
+    const createTask = (title: string) => {
+        const newTask = { id: v1(), title, isDone: false }
+        setTasks([newTask, ...filteredTasks])
     }
 
     const deleteTask = (taskId: string) => {
