@@ -20,16 +20,17 @@ export const TodolistItem = (
     const [taskTitle, setTaskTitle] = useState('')
 console.log(taskTitle)
 
+    const createTaskHandler = () => {
+        createTask(taskTitle)
+        setTaskTitle('')
+    }
+
     return (
         <div>
             <h3>{title}</h3>
             <div>
                 <input value={taskTitle} onChange={(e) => setTaskTitle(e.target.value)} />
-                <Button title='+' onClick={() => {
-                        createTask(taskTitle)
-                        setTaskTitle('')
-                    }
-                }/>
+                <Button title='+' onClick={() => createTaskHandler()}/>
             </div>
             {tasks.length === 0
                 ? 'Тасок нет'
