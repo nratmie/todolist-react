@@ -1,6 +1,6 @@
 import {FilterValues, Task} from './App.tsx';
 import {Button} from './Button.tsx';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type Props = {
     title: string
@@ -25,7 +25,11 @@ console.log(taskTitle)
         setTaskTitle('')
     }
 
-
+    const createTaskOnEnterHandler = (e: KeyboardEvent<HTMLInputElement> ) => {
+        if (e.key === 'Enter') {
+            createTaskHandler()
+        }
+    }
 
     const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTaskTitle(e.currentTarget.value)
@@ -38,7 +42,7 @@ console.log(taskTitle)
                 <input
                     value={taskTitle}
                     onChange={changeTaskTitleHandler}
-                    // onKeyDown={createTaskOnEnterHandler}
+                    onKeyDown={createTaskOnEnterHandler}
                 />
 
                 <Button title='+' onClick={createTaskHandler}/>
