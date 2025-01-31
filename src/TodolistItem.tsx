@@ -1,6 +1,6 @@
 import {FilterValues, Task} from './App.tsx';
 import {Button} from './Button.tsx';
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 
 type Props = {
     title: string
@@ -25,17 +25,32 @@ console.log(taskTitle)
         setTaskTitle('')
     }
 
+
+
+    const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTaskTitle(e.currentTarget.value)
+    }
+
     return (
         <div>
             <h3>{title}</h3>
             <div>
-                <input value={taskTitle} onChange={(e) => setTaskTitle(e.target.value)} />
-                <Button title='+' onClick={() => createTaskHandler()}/>
+                <input
+                    value={taskTitle}
+                    onChange={changeTaskTitleHandler}
+                    // onKeyDown={createTaskOnEnterHandler}
+                />
+
+                <Button title='+' onClick={createTaskHandler}/>
             </div>
             {tasks.length === 0
                 ? 'Тасок нет'
                 : <ul>
                     {tasks.map((task: Task) => {
+                        const deleteTaskHandler = () => {
+                            deleteTask(task.id)
+                        }
+
                         return (
                             <li>
                                 <input
@@ -46,7 +61,7 @@ console.log(taskTitle)
 
                                 <Button
                                     title={'x'}
-                                    onClick={() => deleteTask(task.id)}
+                                    onClick={deleteTaskHandler}
                                 />
                             </li>
                         )
