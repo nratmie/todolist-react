@@ -21,11 +21,14 @@ export const TodolistItem = (
       changeTaskStatus
     }: Props) => {
     const [taskTitle, setTaskTitle] = useState('')
-    console.log(taskTitle)
 
     const createTaskHandler = () => {
-      createTask(taskTitle)
-      setTaskTitle('')
+      const trimmedTitle = taskTitle.trim()
+
+      if (trimmedTitle !== '') {
+        createTask(trimmedTitle)
+        setTaskTitle('')
+      }
     }
 
     const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +52,7 @@ export const TodolistItem = (
         <div>
           <input
             value={taskTitle}
-            onChange={() => changeTaskTitleHandler}
+            onChange={changeTaskTitleHandler}
             onKeyDown={createTaskOnEnterHandler}
           />
 
