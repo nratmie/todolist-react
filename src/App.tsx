@@ -13,6 +13,8 @@ export type FilterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
     // BLL
+    const [filter, setFilter] = useState<FilterValues>('all')
+
     const [tasks, setTasks] = useState<Task[]>(
         [
             { id: v1(), title: 'HTML&CSS', isDone: true },
@@ -24,7 +26,14 @@ export const App = () => {
         ]
     )
 
-    const [filter, setFilter] = useState<FilterValues>('all')
+    const deleteTask = (taskId: string) => {
+        const filteredTasks = tasks.filter((task: Task) => task.id !== taskId)
+        setTasks(filteredTasks)
+    }
+
+    const changeFilter = (filter: FilterValues) => {
+        setFilter(filter)
+    }
 
     let filteredTasks = tasks
     if (filter === 'active') {
@@ -34,18 +43,9 @@ export const App = () => {
         filteredTasks = tasks.filter(task => task.isDone)
     }
 
-    const changeFilter = (filter: FilterValues) => {
-        setFilter(filter)
-    }
-
     const createTask = (title: string) => {
         const task = { id: v1(), title, isDone: false }
         setTasks([task, ...filteredTasks])
-    }
-
-    const deleteTask = (taskId: string) => {
-        const filteredTasks = tasks.filter((task: Task) => task.id !== taskId)
-        setTasks(filteredTasks)
     }
 
     // UI
@@ -54,9 +54,9 @@ export const App = () => {
           <TodolistItem
               title="What to learn"
               tasks={filteredTasks}
-              createTask={createTask}
               deleteTask={deleteTask}
               changeFilter={changeFilter}
+              createTask={createTask}
           />
       </div>
   )
