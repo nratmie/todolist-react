@@ -5,7 +5,7 @@ import {ChangeEvent, KeyboardEvent, useState} from 'react';
 type Props = {
   todolist: Todolist
   tasks: Task[]
-  deleteTask: (taskId: string) => void
+  deleteTask: (todoId: string, taskId: string) => void
   changeFilter: (todoId: string, filter: FilterValues) => void
   createTask: (taskTitle: string) => void
   changeTaskStatus: (taskId: string, isDone: boolean) => void
@@ -68,7 +68,7 @@ export const TodolistItem = (
           : <ul>
             {tasks.map((task: Task) => {
               const deleteTaskHandler = () => {
-                deleteTask(task.id)
+                deleteTask(id, task.id)
               }
 
               const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskId: string) => {
