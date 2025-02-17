@@ -8,7 +8,7 @@ type Props = {
   deleteTask: (taskId: string) => void
   changeFilter: (filter: FilterValues) => void
   createTask: (taskTitle: string) => void
-  changeTaskStatus: (taskId: string, value: boolean) => void
+  changeTaskStatus: (taskId: string, isDone: boolean) => void
   filterValue: FilterValues
 }
 
@@ -47,11 +47,6 @@ export const TodolistItem = (
       }
     }
 
-    const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskId: string) => {
-      const newStatusValue = e.currentTarget.checked
-      changeTaskStatus(taskId, newStatusValue)
-    }
-
     return (
       <div>
         <h3>{title}</h3>
@@ -62,9 +57,8 @@ export const TodolistItem = (
             onChange={changeTaskTitleHandler}
             onKeyDown={createTaskOnEnterHandler}
           />
-          {error && <div className={'error-message'}>{error}</div>}
-
           <Button title='+' onClick={createTaskHandler}/>
+          {error && <div className={'error-message'}>{error}</div>}
         </div>
 
         {tasks.length === 0
@@ -73,6 +67,11 @@ export const TodolistItem = (
             {tasks.map((task: Task) => {
               const deleteTaskHandler = () => {
                 deleteTask(task.id)
+              }
+
+              const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskId: string) => {
+                const newStatusValue = e.currentTarget.checked
+                changeTaskStatus(taskId, newStatusValue)
               }
 
               return (
