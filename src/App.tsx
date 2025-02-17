@@ -19,6 +19,9 @@ export type FilterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
   // BLL
+  const todolistId1 = v1()
+  const todolistId1 = v1()
+
   const [todolists, setTodolists] = useState([
     {id: v1(), title: 'What to learn', filter: 'all'},
     {id: v1(), title: 'What to buy', filter: 'all'},
