@@ -7,8 +7,8 @@ type Props = {
   tasks: Task[]
   deleteTask: (todoId: string, taskId: string) => void
   changeFilter: (todoId: string, filter: FilterValues) => void
-  createTask: (taskTitle: string) => void
-  changeTaskStatus: (taskId: string, isDone: boolean) => void
+  createTask: (todoId: string, taskTitle: string) => void
+  changeTaskStatus: (todoId: string, taskId: string, isDone: boolean) => void
 }
 
 export const TodolistItem = (
@@ -27,7 +27,7 @@ export const TodolistItem = (
       const trimmedTitle = taskTitle.trim()
 
       if (trimmedTitle !== '') {
-        createTask(trimmedTitle)
+        createTask(id, trimmedTitle)
         setTaskTitle('')
       } else {
         setError('Title is required')
@@ -73,7 +73,7 @@ export const TodolistItem = (
 
               const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskId: string) => {
                 const newStatusValue = e.currentTarget.checked
-                changeTaskStatus(taskId, newStatusValue)
+                changeTaskStatus(id, taskId, newStatusValue)
               }
 
               return (
