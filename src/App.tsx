@@ -3,6 +3,12 @@ import {TodolistItem} from "./TodolistItem.tsx";
 import {useState} from 'react';
 import {v1} from 'uuid';
 
+export type Todolist = {
+  id: string;
+  title: string;
+  filter: string;
+}
+
 export type Task = {
   id: string
   title: string
@@ -15,14 +21,16 @@ export const App = () => {
   // BLL
   const [filter, setFilter] = useState<FilterValues>('all')
 
+  const [todolists, setTodolists] = useState([
+    {id: v1(), title: 'What to learn', filter: 'all'},
+    {id: v1(), title: 'What to buy', filter: 'all'},
+  ])
+
   const [tasks, setTasks] = useState<Task[]>(
     [
       {id: v1(), title: 'HTML&CSS', isDone: true},
       {id: v1(), title: 'JS', isDone: true},
       {id: v1(), title: 'ReactJS', isDone: false},
-      {id: v1(), title: 'Redux', isDone: false},
-      {id: v1(), title: 'Typescript', isDone: false},
-      {id: v1(), title: 'RTK query', isDone: false},
     ]
   )
 
@@ -50,22 +58,27 @@ export const App = () => {
   }
 
   const changeTaskStatus = (taskId: string, isDone: boolean) => {
-    const newState = tasks.map(task => task.id == taskId ? { ...task, isDone } : task)
+    const newState = tasks.map(task => task.id == taskId ? {...task, isDone} : task)
     setTasks(newState)
   }
 
   // UI
   return (
     <div className="app">
-      <TodolistItem
-        title="What to learn"
-        tasks={filteredTasks}
-        deleteTask={deleteTask}
-        changeFilter={changeFilter}
-        createTask={createTask}
-        changeTaskStatus={changeTaskStatus}
-        filterValue={filter}
-      />
+      {todolists.map(todo => {
+          return (
+            <TodolistItem
+              key={todo.id}
+              todolist={todo}
+              tasks={filteredTasks}
+              deleteTask={deleteTask}
+              changeFilter={changeFilter}
+              createTask={createTask}
+              changeTaskStatus={changeTaskStatus}
+            />
+          )
+        }
+      )}
     </div>
   )
 }
