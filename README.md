@@ -22,6 +22,14 @@
 - Invalid task title error message styling
 - Completed task styling
 
+## s2l1
+- Tasks, todolists state structure change
+- Filter tasks in todolists
+- Fix functions that were affected by state change
+- Remove todolist 
+- Tasks state typing
+
+
 
 ## React + TypeScript + Vite
 
