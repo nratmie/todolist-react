@@ -66,6 +66,10 @@ export const App = () => {
     setTasks(newState)
   }
 
+  const deleteTodolist = (todoId: string) => {
+    setTodolists(todolists.filter(todo => todo.id !== todoId))
+  }
+
 // UI
   return (
     <div className="app">
@@ -87,6 +91,7 @@ export const App = () => {
               changeFilter={changeFilter}
               createTask={createTask}
               changeTaskStatus={changeTaskStatus}
+              deleteTodolist={deleteTodolist}
             />
           )
         }
