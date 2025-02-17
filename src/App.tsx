@@ -19,8 +19,6 @@ export type FilterValues = 'all' | 'active' | 'completed'
 
 export const App = () => {
   // BLL
-  const [filter, setFilter] = useState<FilterValues>('all')
-
   const [todolists, setTodolists] = useState([
     {id: v1(), title: 'What to learn', filter: 'all'},
     {id: v1(), title: 'What to buy', filter: 'all'},
@@ -39,22 +37,16 @@ export const App = () => {
     setTasks(filteredTasks)
   }
 
-  const changeFilter = (filter: FilterValues) => {
-    setFilter(filter)
-  }
-
-  let filteredTasks = tasks
-  if (filter === 'active') {
-    filteredTasks = tasks.filter(task => !task.isDone)
-  }
-  if (filter === 'completed') {
-    filteredTasks = tasks.filter(task => task.isDone)
+  const changeFilter = (todoId: string, filter: FilterValues) => {
+    setTodolists(todolists.map(todo => todo.id === todoId
+      ? {...todo, filter}
+      : todo))
   }
 
   const createTask = (title: string) => {
     const newTask = {id: v1(), title, isDone: false}
-    const newTasks = [newTask, ...filteredTasks]
-    setTasks(newTasks)
+    // const newTasks = [newTask, ...filteredTasks]
+    // setTasks(newTasks)
   }
 
   const changeTaskStatus = (taskId: string, isDone: boolean) => {
@@ -66,6 +58,14 @@ export const App = () => {
   return (
     <div className="app">
       {todolists.map(todo => {
+          let filteredTasks = tasks
+          if (todo.filter === 'active') {
+            filteredTasks = tasks.filter(task => !task.isDone)
+          }
+          if (todo.filter === 'completed') {
+            filteredTasks = tasks.filter(task => task.isDone)
+          }
+
           return (
             <TodolistItem
               key={todo.id}
