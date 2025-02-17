@@ -44,8 +44,9 @@ export const App = () => {
   }
 
   const createTask = (title: string) => {
-    const task = {id: v1(), title, isDone: false}
-    setTasks([task, ...filteredTasks])
+    const newTask = {id: v1(), title, isDone: false}
+    const newTasks = [newTask, ...filteredTasks]
+    setTasks(newTasks)
   }
 
   const changeTaskStatus = (taskId: string, isDone: boolean) => {
